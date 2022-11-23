@@ -1,0 +1,12 @@
+# should update src/parser/lexer.ts if this line changed
+term: + num
+shift: []
+reduce: []
+
+G: 1          E
+
+E:
+- 2           E + F
+- 3           F
+
+F: 4          num

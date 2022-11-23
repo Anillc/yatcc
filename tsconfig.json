@@ -1,0 +1,15 @@
+{
+  "compilerOptions": {
+    "baseUrl": ".",
+    "target": "es2019",
+    "module": "commonjs",
+    "declaration": true,
+    "esModuleInterop": true,
+    "moduleResolution": "node",
+    "resolveJsonModule": true,
+    "outDir": "lib"
+  },
+  "include": [
+    "src",
+  ]
+}
