@@ -264,8 +264,10 @@ clst.forEach(itemset => {
 })
 
 terms.pop() // pop $
-writeFileSync(resolve(__dirname, '../src/grammar.json'), JSON.stringify({
-  terms,
-  grammars,
-}))
-writeFileSync(resolve(__dirname, '../src/table.json'), JSON.stringify(action))
+const ps = Object.values(grammars).flat().reduce((acc, x) => (acc[x.id] = x, acc), [] as Producer[])
+writeFileSync(resolve(__dirname, '../src/producers.json'), JSON.stringify(ps))
+// writeFileSync(resolve(__dirname, '../src/grammar.json'), JSON.stringify({
+//   terms,
+//   grammars,
+// }))
+// writeFileSync(resolve(__dirname, '../src/table.json'), JSON.stringify(action))
