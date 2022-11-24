@@ -42,7 +42,7 @@ type Eval<N> = N extends Node
   : N['id'] extends 8 ? Eval<N['nodes'][1]>
   : N['id'] extends 9 ? N['nodes'][0] extends NumberToken ? N['nodes'][0]['value'] : never
   : never : N
-  
+
 type E<I extends string> = Eval<Parse<producers, table, I>>
 
 type T = E<`(1 + 2) * 3 + 4 * 5`>
