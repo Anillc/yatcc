@@ -1,0 +1,19 @@
+term: + - * / ( ) num str id
+shift: []
+reduce: []
+
+G: 1          E1
+
+E1:
+- 2           E1 + E2
+- 3           E1 - E2
+- 4           E2
+
+E2:
+- 5           E2 * F
+- 6           E2 / F
+- 7           F
+
+F:
+- 8           ( E1 )
+- 9           num

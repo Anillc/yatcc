@@ -1,3 +1,5 @@
+import { ToNumber } from './utils'
+
 type LexTrim<I extends string> = I extends `${' ' | '\t' | '\n'}${infer R}` ? LexTrim<R> : I
 
 type Num = '0' | '1' | '2' | '3' | '4' | '5' | '6' | '7' | '8' | '9'
@@ -37,7 +39,7 @@ type Equal<A, B> = [A] extends [B] ? true : false
 export type Lex<I extends string> =
   LexTrim<I> extends infer Trimmed extends string
     ? Trimmed extends '' ? []
-    : LexNumber<Trimmed> extends [infer N extends string, infer R extends string] ? Equal<N, ''> extends false ? [{ type: 'num', value: N }, ...Lex<R>]
+    : LexNumber<Trimmed> extends [infer N extends string, infer R extends string] ? Equal<N, ''> extends false ? [{ type: 'num', value: ToNumber<N> }, ...Lex<R>]
     : LexString<Trimmed> extends [infer S extends string, infer R extends string] ? Equal<S, ''> extends false ? [{ type: 'str', value: S }, ...Lex<R>]
     : LexId<Trimmed>     extends [infer I extends string, infer R extends string] ? Equal<I, ''> extends false ? [{ type: 'id' , value: I }, ...Lex<R>]
     : Trimmed extends `${infer L}${infer R}` ? [{ type: L }, ...Lex<R>]

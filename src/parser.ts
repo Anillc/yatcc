@@ -16,6 +16,7 @@ export type Table = Record<string, Record<string, [ActionType, number]>>
 export type GetTopToken<Tokens extends Token[]> = Tokens extends [] ? '$' : Tokens[0]['type']
 export type GetAction<T extends Table, S extends string[], Tokens extends Token[]> = T[Last<S, string>][GetTopToken<Tokens>]
 
+// TODO: empty
 export type Parse<
   P extends Record<number, Producer>,
   T extends Table,

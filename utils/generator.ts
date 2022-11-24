@@ -22,7 +22,7 @@ interface Itemset {
   next: Record<string, number>
 }
 
-const g = load(readFileSync(resolve(__dirname, './grammar.yaml'), 'utf-8')) as any
+const g = load(readFileSync(resolve(__dirname, '../example/grammar.yaml'), 'utf-8')) as any
 
 let terms: string[] = []
 
@@ -265,9 +265,10 @@ clst.forEach(itemset => {
 
 terms.pop() // pop $
 const ps = Object.values(grammars).flat().reduce((acc, x) => (acc[x.id] = x, acc), [] as Producer[])
-writeFileSync(resolve(__dirname, '../src/producers.json'), JSON.stringify(ps))
-// writeFileSync(resolve(__dirname, '../src/grammar.json'), JSON.stringify({
-//   terms,
-//   grammars,
-// }))
-// writeFileSync(resolve(__dirname, '../src/table.json'), JSON.stringify(action))
+const producers = JSON.stringify(ps)
+const table = JSON.stringify(action)
+
+writeFileSync(resolve(__dirname, '../example/table.ts'), `
+  export type producers = ${producers}
+  export type table = ${table}
+`)
