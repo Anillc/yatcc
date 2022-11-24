@@ -1,4 +1,5 @@
-import { Last, ToString, Tail } from "./utils"
+import { Token, Node } from '.'
+import { Last, ToString, Tail, Pop } from './utils'
 
 export interface Producer {
   id: number
@@ -11,27 +12,6 @@ export enum ActionType {
 }
 
 export type Table = Record<string, Record<string, [ActionType, number]>>
-
-interface Token {
-  type: string
-}
-
-interface Node {
-  id: number
-  nodes: (Node | Token)[]
-}
-
-// [Rest, Poped]
-type Pop<
-  S extends unknown[],
-  T extends string[],
-> = T extends [infer _, ...infer R extends string[]]
-  ? S extends [...infer Rest, infer Top]
-    ? [Pop<Rest, R>[0], [Top, ...Pop<Rest, R>[1]]]
-    : never
-  : T extends []
-    ? [S, []]
-    : never
 
 export type GetTopToken<Tokens extends Token[]> = Tokens extends [] ? '$' : Tokens[0]['type']
 export type GetAction<T extends Table, S extends string[], Tokens extends Token[]> = T[Last<S, string>][GetTopToken<Tokens>]
